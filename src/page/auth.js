@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import "../style/output.css"
 import { ButtonGroup, Button } from '@material-ui/core';
 import Register from "./auth/register";

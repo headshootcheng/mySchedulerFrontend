@@ -1,7 +1,8 @@
-import React,{ useState } from "react";
+import React, {useState, useEffect} from "react";
 import {TextField, Button } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import axios from "axios";
+import authService  from "../../service/auth";
+import userService from "../../service/user";
 
 const Register = () => {
 
@@ -11,14 +12,14 @@ const Register = () => {
     const [status, setStatus] = useState("");
     const [message, setMessage] = useState("");
 
-   
+   useEffect(async() => {
+        const data = await userService.userTestApi();
+        console.log(data);
+   }, [])
+
     const postSignUpInfo = async() => {
         try{
-            const {data} = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/signup`,{
-                username:username,
-                email:email,
-                password:password
-            })
+            const {data} = await authService.registerUserApi(username,email,password);
             setStatus("success");
             setMessage(data.message);
         }

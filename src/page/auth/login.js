@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {TextField, Button } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import axios from "axios";
+import authService  from "../../service/auth";
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -22,11 +22,8 @@ const Login = () => {
 
     const postLoginInfo = async() => {
         try{
-            const {data} = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`,{
-                username:username,
-                password:password
-            })
-            console.log(data);
+            const {data} = await authService.loginApi(username,password);
+            authService.storeToken(data.token);
         }
         catch(error){
             const {data} = error.response;
