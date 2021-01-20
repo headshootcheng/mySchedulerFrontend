@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {lazy, Suspense} from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+const Auth = lazy(() => import('./page/auth'));
+const Home = lazy(() => import('./page/home'));
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Router>
+      <Suspense fallback={<div>Loading ...</div>}> 
+          <Switch>
+              <Route path = "/auth" component= {Auth}/>
+              <Route path = "/" component= {Home}/>            
+          </Switch>
+      </Suspense>
+  </Router>,
   document.getElementById('root')
 );
 
