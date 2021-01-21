@@ -1,16 +1,24 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {TextField, Button } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import authService  from "../../service/auth";
+import {loginAction, showAuthErrorBox} from "../../redux/actions/auth"
+import {useDispatch, useSelector} from "react-redux"
+import { useHistory } from "react-router-dom"
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [status, setStatus] = useState("");
-    const [message, setMessage] = useState("");
+
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const authMessageBox = useSelector((state => state.authMessageBox));
+    const isLoggedIn = useSelector((state => state.isLoggedIn));
+
 
     const renderMessageBar = () =>{
-        switch(status){
+        const {type, message} = authMessageBox;
+        //console.log("re-render MessageBar");
+        switch(type){
             default:
                 return null;
             case("success"):
@@ -20,33 +28,28 @@ const Login = () => {
         }
     }
 
-    const postLoginInfo = async() => {
-        try{
-            const {data} = await authService.loginApi(username,password);
-            authService.storeToken(data.token);
-        }
-        catch(error){
-            const {data} = error.response;
-            setStatus("error");
-            setMessage(data.message);
-        }
-    }
 
+    useEffect(()=>{
+        //console.log("re-rendered");
+    })
 
     const login = e => {
         e.preventDefault();
         const isUsernameCorrect = validateUsernameOrPassword(username);
         const isPasswordCorrect = validateUsernameOrPassword(password);
         if(isPasswordCorrect && isUsernameCorrect){
-            postLoginInfo();
+            dispatch(loginAction(username,password));
+        }
+        console.log("isLoggedIn " , isLoggedIn)
+        if(isLoggedIn){
+            history.push("/");
         }
     }
 
     const validateUsernameOrPassword = (input) => {
         const inputWithoutSpace = input.trim();
         if(inputWithoutSpace === ''){
-            setStatus("error");
-            setMessage("Cannot be blank !!!");
+            dispatch(showAuthErrorBox("Field cannot be empty !!!"));
             return false;
         }
         return true;

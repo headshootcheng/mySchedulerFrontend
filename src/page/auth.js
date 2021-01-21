@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom"
 import "../style/output.css"
 import { ButtonGroup, Button } from '@material-ui/core';
+import { useSelector } from "react-redux"
 import Register from "./auth/register";
 import Login from "./auth/login";
 
 const Auth = () => {
+    const history = useHistory();
     const [page, setPage] = useState("login");
+    const isLoggedIn = useSelector((state) => state.isLoggedIn);
+
+    useEffect(()=>{
+        console.log(isLoggedIn);
+        if(isLoggedIn){
+            history.push("/");
+        }
+    },[])
+
     const renderPage = () =>{
         switch(page){
             case "login":
