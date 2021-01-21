@@ -40,10 +40,6 @@ const Login = () => {
         if(isPasswordCorrect && isUsernameCorrect){
             dispatch(loginAction(username,password));
         }
-        console.log("isLoggedIn " , isLoggedIn)
-        if(isLoggedIn){
-            history.push("/");
-        }
     }
 
     const validateUsernameOrPassword = (input) => {

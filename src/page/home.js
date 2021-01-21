@@ -7,7 +7,6 @@ const Home = () => {
     const userInfo = useSelector((state)=>state.userInfo);
 
     useEffect(() => {
-        console.log("home  "+isLoggedIn+ "  " + userInfo);
         if(!isLoggedIn)
             history.push("/auth");
     }, [])

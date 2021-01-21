@@ -16,7 +16,7 @@ const Auth = () => {
         if(isLoggedIn){
             history.push("/");
         }
-    },[])
+    },[isLoggedIn])
 
     const renderPage = () =>{
         switch(page){
