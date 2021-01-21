@@ -12,7 +12,7 @@ const Auth = () => {
     const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
     useEffect(()=>{
-        console.log(isLoggedIn);
+        console.log("auth "+isLoggedIn);
         if(isLoggedIn){
             history.push("/");
         }

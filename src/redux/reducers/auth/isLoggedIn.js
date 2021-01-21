@@ -1,14 +1,21 @@
-import { LOGINON , LOGINOFF } from "../../actions/auth"
-
+import { LOGIN , LOGOUT, GET_USER_SUCCESS, GET_USER_FAILED } from "../../actions/auth"
+import authService from "../../../service/auth"
 const initStatus = false;
 
 const isLoggedIn = (state = initStatus ,actions) =>{
     switch(actions.type){
-        case LOGINON:{
+        case LOGIN:{
             return true;
         }
-        case LOGINOFF:{
-            return false
+        case LOGOUT:{
+            authService.logout();
+            return false;
+        }
+        case GET_USER_SUCCESS:{
+            return true;
+        }
+        case GET_USER_FAILED:{
+            return false;
         }
         default:{
             return state;

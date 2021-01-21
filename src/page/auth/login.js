@@ -3,16 +3,13 @@ import {TextField, Button } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import {loginAction, showAuthErrorBox} from "../../redux/actions/auth"
 import {useDispatch, useSelector} from "react-redux"
-import { useHistory } from "react-router-dom"
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const history = useHistory();
     const dispatch = useDispatch();
     const authMessageBox = useSelector((state => state.authMessageBox));
-    const isLoggedIn = useSelector((state => state.isLoggedIn));
 
 
     const renderMessageBar = () =>{

@@ -1,10 +1,11 @@
 import axios from 'axios';
 import authService from './auth';
 const userService = {
-    userTestApi: () => {
-        return axios.get(`${process.env.REACT_APP_API_URL}/api/user/test`,{
+    getUserInfo: async() => {
+        const {data} = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/userInfo`,{
             headers: authService.authHeader()
         });
+        return data;
     }
 }
 
