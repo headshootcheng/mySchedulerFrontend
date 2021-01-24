@@ -25,8 +25,8 @@
     "start": "react-scripts start",
     "build:style": "tailwindcss build ./src/style/tailwind.css -o ./src/style/output.css",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --fix --ext .js,.jsx ."
   },
   "browserslist": {
     "production": [
